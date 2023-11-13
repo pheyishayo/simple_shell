@@ -10,3 +10,5 @@ If an executable cannot be found, print an error message and display the prompt 
 Handle errors.
 You have to handle the “end of file” condition (Ctrl+D).
 Task 2: Handle command lines with arguments
+Task 3: Handle the PATH
+fork must not be called if the command doesn’t exist

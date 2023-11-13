@@ -13,8 +13,8 @@
 
 void _prompt(void);
 void my_printf(const char *command);
-void arg_line(const char *commands, char **av);
 void exe_prog(const char *commands);
 void user_input(char *format, size_t size);
+void arg_line(const char *input, char **av);
 
 #endif/*MAIN_H*/

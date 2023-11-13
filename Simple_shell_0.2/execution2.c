@@ -4,7 +4,7 @@
  * @input: pointer to constant string of character
  * @av: pointer to array of characters
  */
-void arg_line(const char *input, char **av)
+void arg_line(const char *input, char **av __attribute__((unused)))
 {
 	const int max = 1024;
 	pid_t child_pid;
