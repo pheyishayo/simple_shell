@@ -19,7 +19,7 @@ int main(int ac, char **av)
 		user_input(command_line, sizeof(command_line));
 		if (strspn(command_line, " ") < strlen(command_line))
 		{
-			if (_builtin(command_line) == 0)
+			if (_builtin(command_line, av) == 0)
 				arg_line(command_line, av);
 			else
 				arg_line(command_line, av);

@@ -28,6 +28,7 @@ void arg_line(const char *input, char **av __attribute__((unused)))
 		free(args);
 		exit(EXIT_FAILURE);
 	}
+	_builtin(args[0], environ);
 	child_pid = fork();
 
 	if (child_pid == -1)

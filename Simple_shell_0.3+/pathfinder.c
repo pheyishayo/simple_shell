@@ -5,7 +5,7 @@
  * @path: pointer to a const character string
  * Return: full path if found, othewise NULL
  */
-char *pathfinder(char *command,const char *path)
+char *pathfinder(char *command, const char *path)
 {
 	const char *delim = ":";
 	char *whole_path = NULL;
