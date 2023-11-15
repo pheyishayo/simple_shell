@@ -1,0 +1,56 @@
+#include "shell.h"
+
+void arg_line(const char *input, char **av __attribute__((unused)))
+{
+	const int max = 1024;
+	char **args = malloc(sizeof(char *) * max);
+	char *path = getenv("PATH"), *whole_path = NULL, *delim = "\n ";
+	if (args == NULL)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+	for (i = 0; i < max; i++)
+		args[i] = NULL;
+	token = strtok((char *)input, delim);
+	for (j = 0; token != NULL && (args[j] = token); j++)
+		token = strtok(NULL, delim);
+	if (args[0] == NULL)
+	{
+		my_printf("Error: no input\n");
+		free(args);
+		exit(EXIT_FAILURE);
+	}
+	child_pid = fork();
+	if (child_pid == -1)
+	{
+		perror("fork");
+		free(args);
+		exit(EXIT_FAILURE);
+	}
+	if (child_pid == 0)
+	{
+		whole_path = pathfinder(args[0], path);
+		if (whole_path != NULL)
+		{
+			if (execve(whole_path, args, NULL) == -1)
+			{
+				perror("execve");
+				free(whole_path);
+				free(args);
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			perror("pathfinder");
+			free(args);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		waitpid(child_pid, &status, 0);
+		free(args);
+	}
+}
