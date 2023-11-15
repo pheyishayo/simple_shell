@@ -5,7 +5,7 @@
  * @input: ponter to constant character
  * @av: pointer to a pointer to a character
  * Return: no return type
-*/ 
+*/
 void arg_line(const char *input, char **av __attribute__((unused)))
 {
 	const int max = 1024;
