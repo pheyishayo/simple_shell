@@ -5,7 +5,7 @@
  * @input: ponter to constant character
  * @av: pointer to a pointer to a character
  * Return: no return type
- */
+*/ 
 void arg_line(const char *input, char **av __attribute__((unused)))
 {
 	const int max = 1024;
@@ -28,6 +28,7 @@ void arg_line(const char *input, char **av __attribute__((unused)))
 		free(args);
 		exit(EXIT_FAILURE);
 	}
+	_builtin(args[0], environ);
 	child_pid = fork();
 
 	if (child_pid == -1)
