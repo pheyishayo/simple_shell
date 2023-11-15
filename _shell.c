@@ -10,13 +10,27 @@
 
 int main(int ac, char **av)
 {
+
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t nread;
+	
 	char command_line[150];
+
 	(void)ac;
 
 	while (1)
 	{
 		_prompt();
-		user_input(command_line, sizeof(command_line));
+
+		nread = getline(&line, &len, stdin);
+		if (nread == -1)
+		{
+		perror("getline");
+		exit(EXIT_FAILURE);
+		}
+		strcpy(command_line, line);
+
 		if (strspn(command_line, " ") < strlen(command_line))
 		{
 			if (_builtin(command_line, av) == 0)
@@ -24,6 +38,7 @@ int main(int ac, char **av)
 			else
 				arg_line(command_line, av);
 		}
+		
 	}
 	return (0);
 }
