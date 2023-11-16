@@ -19,13 +19,17 @@ int main(int ac, char **av)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, "CPROG$ ", 7);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "CPROG$ ", 7);
 		nread = getline(&line, &len, stdin);
 
 		if (nread == -1)
 		{
-			perror("getline");
-			exit(1);
+			if (feof(stdin))
+			{
+				write(STDOUT_FILENO, "\n", 1);
+				exit(EXIT_FAILURE);
+			}
 		}
 		arg_linee(line);
 	}
