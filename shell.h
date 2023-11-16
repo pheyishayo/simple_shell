@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <ctype.h>
 
 extern char **environ;
 
@@ -24,10 +25,11 @@ char *pathfinder(char *command, const char *path);
 void fork_exec(char **args, const char *path);
 void tok_input(const char *input, char **args, const char *delim);
 int _builtin(char  *arg, char **env);
-void arg_linee(char *command);
+int arg_linee(char *command);
 char *get_loc(char *path, char *file_name);
 char *get_path(char *file);
 void print_env(char *env[]);
 int checkinput(const char *filename);
+int is_whitespace(const char *str);
 
 #endif/*MAIN_H*/

@@ -23,13 +23,18 @@ int main(int ac, char **av)
 			write(STDOUT_FILENO, "CPROG$ ", 7);
 		nread = getline(&line, &len, stdin);
 
+		if (is_whitespace(line))
+		{
+			continue;
+		}
+		if (strcmp(line, "exit\n") == 0)
+		{
+			break;
+		}
+				
 		if (nread == -1)
 		{
-			if (feof(stdin))
-			{
-				write(STDOUT_FILENO, "\n", 1);
-				exit(EXIT_FAILURE);
-			}
+			exit(EXIT_FAILURE);
 		}
 		arg_linee(line);
 	}
