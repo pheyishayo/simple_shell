@@ -31,8 +31,16 @@ int main(int ac, char **av)
 				exit(EXIT_FAILURE);
 			}
 		}
+		if (strcmp(line, "exit\n") == 0)
+		{
+		free(line);
+		exit(EXIT_SUCCESS);
+		}
+
 		arg_linee(line);
 	}
 	free(line);
+	{
 	return (0);
+}
 }
