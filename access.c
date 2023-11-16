@@ -14,7 +14,7 @@ char *get_loc(char *path, char *file_name)
 	path_copy = strdup(path);
 	token = strtok(path_copy, ":");
 
-	while (token != NULL)
+	while (token)
 	{
 		if (path_buffer)
 		{
@@ -44,7 +44,7 @@ char *get_loc(char *path, char *file_name)
 		token = strtok(NULL, ":");
 	}
 	free(path_copy);
-	if (path_buffer != NULL)
+	if (path_buffer)
 		free(path_buffer);
 	return (NULL);
 }

@@ -4,7 +4,7 @@
  * @command: the input
  * Return: no return
  */
-void arg_linee(char *command)
+int arg_linee(char *command)
 {
 	pid_t child_pid;
 	int status;
@@ -15,7 +15,7 @@ void arg_linee(char *command)
 	token = strtok(command, "\n ");
 	array = malloc(sizeof(char *) * 1024);
 	i = 0;
-	while (token != NULL)
+	while (token)
 	{
 		array[i] = strdup(token);
 		token = strtok(NULL, "\n ");
@@ -44,4 +44,5 @@ void arg_linee(char *command)
 		wait(&status);
 	}
 	free(path);
+	return (status);
 }
