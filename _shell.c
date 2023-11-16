@@ -36,7 +36,6 @@ int main(int ac, char **av)
 			if (feof(stdin))
 			{
 				write(STDOUT_FILENO, "\n", 1);
-				break;
 				exit(EXIT_FAILURE);
 			}
 		}
