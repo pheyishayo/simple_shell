@@ -14,31 +14,21 @@ int main(int ac, char **av)
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t nread;
-	
-	char command_line[150];
-
+	(void)av;
 	(void)ac;
 
 	while (1)
 	{
-		_prompt();
-
+		write(STDOUT_FILENO, "CPROG$ ", 7);
 		nread = getline(&line, &len, stdin);
+
 		if (nread == -1)
 		{
-		perror("getline");
-		exit(EXIT_FAILURE);
+			perror("getline");
+			exit(1);
 		}
-		strcpy(command_line, line);
-
-		if (strspn(command_line, " ") < strlen(command_line))
-		{
-			if (_builtin(command_line, av) == 0)
-				arg_line(command_line, av);
-			else
-				arg_line(command_line, av);
-		}
-		
+		arg_linee(line);
 	}
+	free(line);
 	return (0);
 }

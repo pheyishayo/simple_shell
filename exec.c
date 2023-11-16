@@ -1,47 +1,47 @@
 #include "shell.h"
 
 /**
- * arg_line - This function process a command line arguement
- * @input: ponter to constant character
- * @av: pointer to a pointer to a character
- * Return: no return type
-*/
-void arg_line(const char *input, char **av __attribute__((unused)))
-{
-	const int max = 1024;
-	int i, status;
-	char **args = malloc(sizeof(char *) * max);
-	pid_t child_pid;
-	char *path = getenv("PATH");
+ * arg_linee - execute the input command
+ * @command: the input
+ * Return: no return
+ */
 
-	if (args == NULL)
+void arg_linee(const char *command)
+{
+	pid_t child_pid;
+        int status;
+        char *token;
+        char **array;
+        int i;
+	char *line = strdup(command);
+
+	token = strtok(line, "\n ");
+	array = malloc(sizeof(char *) * 1024);
+	i = 0;
+
+	while (token != NULL)
 	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
+		array[i] = strdup(token);
+		token = strtok(NULL, "\n ");
+		i++;
 	}
-	for (i = 0; i < max; i++)
-		args[i] = NULL;
-	tok_input(input, args, "\n ");
-	if (args[0] == NULL)
-	{
-		my_printf("Error: no input\n");
-		free(args);
-		exit(EXIT_FAILURE);
-	}
-	_builtin(args[0], environ);
+	array[i] = NULL;
+
 	child_pid = fork();
 
 	if (child_pid == -1)
 	{
-		perror("fork");
-		free(args);
+		perror("failed to execute");
 		exit(EXIT_FAILURE);
 	}
 	if (child_pid == 0)
-		fork_exec(args, path);
+	{
+		if (execve(array[0], array, NULL) == -1)
+		{
+			perror("execve");
+			exit(EXIT_FAILURE);
+		}
+	}
 	else
-		waitpid(child_pid, &status, 0);
-	for (i = 0; i < max && args[i] != NULL; i++)
-		free(args[i]);
-	free(args);
+		wait(&status);
 }
