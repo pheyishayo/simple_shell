@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * whitespace - checks if there is whitespace character
+ * is_whitespace - checks if there is whitespace character
  * @str: pointer to string
  * Return: 1
  */
@@ -10,9 +10,9 @@ int is_whitespace(const char *str)
 	{
 		if (!isspace((unsigned char)*str))
 		{
-			return 0;
+			return (0);
 		}
-	       	str++;
+		str++;
 	}
-	return 1;
+	return (1);
 }
