@@ -31,10 +31,14 @@ int main(int ac, char **av)
 		{
 			break;
 		}
-				
 		if (nread == -1)
 		{
-			exit(EXIT_FAILURE);
+			if (feof(stdin))
+			{
+				write(STDOUT_FILENO, "\n", 1);
+				break;
+				exit(EXIT_FAILURE);
+			}
 		}
 		arg_linee(line);
 	}
