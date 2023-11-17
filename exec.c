@@ -4,7 +4,7 @@
  * @command: the input
  * Return: no return
  */
-int arg_linee(char *command)
+void arg_linee(char *command)
 {
 	pid_t child_pid;
 	int status;
@@ -24,6 +24,8 @@ int arg_linee(char *command)
 	array[i] = NULL;
 	path = get_path(array[0]);
 
+	if (path == NULL)
+		perror("./hsh$");
 	child_pid = fork();
 
 	if (child_pid == -1)
@@ -35,14 +37,11 @@ int arg_linee(char *command)
 	{
 		if (execve(path, array, NULL) == -1)
 		{
-			perror("execve");
+			/*perror("execve");*/
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
-	{
 		wait(&status);
-	}
 	free(path);
-	return (status);
 }

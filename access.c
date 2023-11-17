@@ -7,7 +7,7 @@
  */
 char *get_loc(char *path, char *file_name)
 {
-	char *path_copy, *token;
+	char *path_copy, *token, *result = NULL;
 	struct stat file_path;
 	char *path_buffer = NULL;
 
@@ -33,18 +33,17 @@ char *get_loc(char *path, char *file_name)
 		strcat(path_buffer, file_name);
 		strcat(path_buffer, "\0");
 
-		if (stat(path_buffer, &file_path) == 0)
+		if (stat(path_buffer, &file_path) == 0 && access(path_buffer, X_OK) == 0)
 		{
-			if (access(path_buffer, X_OK) == 0)
-			{
-				free(path_copy);
-				return (path_buffer);
-			}
+			/*free(path_copy);*/
+			result = path_buffer;
+			return (result);
 		}
+
 		token = strtok(NULL, ":");
 	}
 	free(path_copy);
-	if (path_buffer)
+	if (!result && path_buffer)
 		free(path_buffer);
 	return (NULL);
 }
