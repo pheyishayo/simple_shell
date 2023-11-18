@@ -7,10 +7,9 @@
 void arg_linee(char *command)
 {
 	pid_t child_pid;
-	int status;
+	int status, i, j;
 	char *token, *path;
 	char **array;
-	int i;
 
 	token = strtok(command, "\n ");
 	array = malloc(sizeof(char *) * 1024);
@@ -43,5 +42,8 @@ void arg_linee(char *command)
 	}
 	else
 		wait(&status);
+	for (j = 0; j < i; j++)
+		free(array[j]);
+	free(array);
 	free(path);
 }
